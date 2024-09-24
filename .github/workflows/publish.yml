@@ -16,7 +16,7 @@ jobs:
       - name: Configure JFrog Artifactory
         run: |
           echo "npmRegistryServer: ${{ secrets.JFROG_ARTIFACTORY_NPM_VIRTUAL_URL }}" >> .yarnrc.yml
-          echo "npmAuthIdent: ${{ secrets.JFROG_ARTIFACTORY_DATA_LAKE_NPM_AUTH }}" >> .yarnrc.yml
+          echo "npmAuthIdent: ${{ secrets.JFROG_ARTIFACTORY_WRITE_NPM_AUTH }}" >> .yarnrc.yml
           echo "npmAlwaysAuth: true" >> .yarnrc.yml
 
       - run: yarn install --immutable
@@ -44,7 +44,7 @@ jobs:
       - name: Configure JFrog Artifactory (Publish)
         run: |
           sed -i "s/npmRegistryServer: .*//g" .yarnrc.yml
-          echo "npmRegistryServer: ${{ secrets.JFROG_ARTIFACTORY_DATA_LAKE_URL }}" >> .yarnrc.yml
+          echo "npmRegistryServer: ${{ secrets.JFROG_ARTIFACTORY_WRITE_NPM_URL }}" >> .yarnrc.yml
 
       - name: Publish package
         if: steps.match-version.PACKAGE_VERSION == steps.match-version.TAG_VERSION
